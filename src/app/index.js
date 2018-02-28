@@ -3,7 +3,7 @@ import { render } from "react-dom";
 import ReactDOM from "react-dom";
 import { Bar } from 'react-chartjs-2';
 
-const data = {
+const data1 = {
     labels: ['January', 'February', 'March', 'April', 'May', 'June', 'July'],
     datasets: [
         {
@@ -18,9 +18,38 @@ const data = {
     ]
 };
 
+import {Doughnut} from 'react-chartjs-2';
+
+function getRandomInt (min, max) {
+    return Math.floor(Math.random() * (max - min + 1)) + min;
+}
+
+const getState = () => ({
+  labels: [
+    'Red',
+    'Green',
+    'Yellow'
+  ],
+  datasets: [{
+    data: [getRandomInt(50, 200), getRandomInt(100, 150), getRandomInt(150, 250)],
+    backgroundColor: [
+    '#CCC',
+    '#36A2EB',
+    '#FFCE56'
+    ],
+    hoverBackgroundColor: [
+    '#FF6384',
+    '#36A2EB',
+    '#FFCE56'
+    ]
+  }]
+});
+
+
 class App extends React.Component {
     constructor() {
         super();
+        this.state = getState();
     }
 
     onGreet() {
@@ -34,13 +63,14 @@ class App extends React.Component {
             <div className="container">
                 <p> helooo </p>
                 <Bar
-                    data={data}
+                    data={data1}
                     width={100}
                     height={50}
                     options={{
                         maintainAspectRatio: false
                     }}
                 />
+                <Doughnut data={this.state} />
             </div>
         );
     }
